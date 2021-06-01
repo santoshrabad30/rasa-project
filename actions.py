@@ -13,6 +13,7 @@ import requests
 from rasa_core.domain import Domain
 import json
 
+# main class to get the capital name of respective country
 class CapitalForm(FormAction):
     def name(self) -> Text:
         return "capital_form"
@@ -37,19 +38,19 @@ class CapitalForm(FormAction):
                tracker: Tracker,
                domain: Dict[Text, Any],
     ) -> List[Dict] :
-        location = tracker.get_slot("capital_name")
+        location = tracker.get_slot("capital_name") # get the user click button payload value
         #trac_country = location
         PARAMS = {"country":location}
         headers = {'content-type': 'application/json'}
 
         url = "https://qcooc59re3.execute-api.us-east-1.amazonaws.com/dev/getCapital"
-        response = requests.post(url, data = json.dumps(PARAMS), headers=headers)
+        response = requests.post(url, data = json.dumps(PARAMS), headers=headers) # post the url with headers and data
         #data = json.loads(response)
         data = response.json()
         ans = data['body']['capital']
       
         print(ans)
-        return [SlotSet("trac_capital", ans), SlotSet("trac_country", location)]
+        return [SlotSet("trac_capital", ans), SlotSet("trac_country", location)] # return the fetch capital from api and clicked country by user
 
 class PopulationForm(FormAction):
     def name(self) -> Text:
@@ -77,7 +78,7 @@ class PopulationForm(FormAction):
         return [SlotSet("trac_population", ans), SlotSet("trac_pcountry", location)]
 
 
-
+# function to get capial name by country name 
 def getcapital(name_capital):
     if name_capital == "India_capital":
         location = "India"
@@ -110,14 +111,14 @@ class ActionGetCapital(Action):
     def name(self):
         return "action_get_capital"
     def run(self, dispatcher, tracker, domain):
-        cap_name = tracker.latest_message['intent'].get('name')
-        trac_capital, trac_country = getcapital(cap_name)
+        cap_name = tracker.latest_message['intent'].get('name') # in this line we get the intent name and pass this intent to the function to get respective capital name
+        trac_capital, trac_country = getcapital(cap_name) 
         #print(trac_capital)
         #print(trac_country)
-        return [SlotSet("trac_capital", trac_capital), SlotSet("trac_country", trac_country)]
+        return [SlotSet("trac_capital", trac_capital), SlotSet("trac_country", trac_country)] # return the slot values 
 
 
-
+# function to return population of corresponding country
 def getpopulation(total_pop):
     if total_pop == "India_population":
         location = "India"
@@ -149,8 +150,8 @@ class ActionGetPopulation(Action):
     def name(self):
         return "action_get_population"
     def run(self, dispatcher, tracker, domain):
-        tot_population = tracker.latest_message['intent'].get('name')
-        trac_population, trac_pcountry = getpopulation(tot_population)
-        return [SlotSet("trac_population", trac_population), SlotSet("trac_pcountry", trac_pcountry)]
+        tot_population = tracker.latest_message['intent'].get('name') # in this line we will get the intent of user message
+        trac_population, trac_pcountry = getpopulation(tot_population) # call the getpoulation function to get the population of corresponding country
+        return [SlotSet("trac_population", trac_population), SlotSet("trac_pcountry", trac_pcountry)] # return the slot population & country name
 
 
