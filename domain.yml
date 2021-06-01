@@ -1,0 +1,129 @@
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - check_capital
+  - check_population
+  - USA_capital
+  - India_capital
+  - Russia_capital
+  - Greece_capital
+  - Sweden_capital
+  - Australia_capital
+  - Finland_capital
+  - Japan_capital
+  - USA_population
+  - India_population
+  - Russia_population
+  - Greece_population
+  - Sweden_population
+  - Australia_population
+  - Finland_population
+  - Japan_population
+ 
+
+
+entities:
+  - location
+
+slots:
+  trac_country:
+     type: unfeaturized 
+  trac_capital:
+     type: unfeaturized
+  trac_population:
+     type: unfeaturized
+  trac_pcountry:
+     type: unfeaturized
+  capital_name:
+     type: text
+  total_population:
+     type: text
+
+
+actions:
+- action_get_capital
+- action_get_population
+- utter_ask_capital_name
+- utter_ask_total_population
+- utter_greet
+- utter_cheer_up
+- utter_did_that_help
+- utter_happy
+- utter_goodbye
+- utter_capital_ans
+- utter_population_ans
+- utter_wrong_capital_name
+
+templates:
+  utter_wrong_capital_name:
+  - text: "Please re-enter a country name:"
+  utter_capital_ans:
+  - text: "The {trac_capital} is the capital of {trac_country}"
+  utter_population_ans:
+  - text: "The total population of {trac_pcountry} is {trac_population}"
+  utter_ask_capital_name:
+  - text: "Please select one of country:"
+    buttons:
+    - title: "India"
+      payload: "India"
+    - title: "USA"
+      payload: "USA"
+    - title: "Australia"
+      payload: "Australia"
+    - title: "Greece"
+      payload: "Greece"
+    - title: "Sweden"
+      payload: "Sweden"
+    - title: "Finland"
+      payload: "Finland"
+    - title: "Japan"
+      payload: "Japan"
+    - title: "Russia"
+      payload: "Russia"
+
+  utter_ask_total_population:
+  - text: "Please select one of country:"
+    buttons:
+    - title: "India"
+      payload: "India"
+    - title: "USA"
+      payload: "USA"
+    - title: "Australia"
+      payload: "Australia"
+    - title: "Greece"
+      payload: "Greece"
+    - title: "Sweden"
+      payload: "Sweden"
+    - title: "Finland"
+      payload: "Finland"
+    - title: "Japan"
+      payload: "Japan"
+    - title: "Russia"
+      payload: "Russia"
+
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+
+forms:
+  - capital_form
+  - population_form
+
+
