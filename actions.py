@@ -27,7 +27,7 @@ class CapitalForm(FormAction):
 
     def validate_capital_name(self, value:Text, dispatcher:CollectingDispatcher, tracker:Tracker, domain: Dict[Text, Any])->Any:
         lst = ["USA","India", "Greece", "Sweden", "Australia", "Finland","Japan","Russia"]
-        if value not in lst:
+        if value in lst:
             return {"capital_name": value}
         else:
             dispatcher.utter_template("utter_wrong_capital_name", tracker)
