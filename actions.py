@@ -1,3 +1,10 @@
+# This files contains your custom actions which can be used to run
+# custom Python code.
+#
+# See this guide on how to implement these action:
+# https://rasa.com/docs/rasa/core/actions/#custom-actions/
+
+
 # This is a simple example for a custom action which utters "Hello World!"
 
 from typing import Any, Text, Dict, List
@@ -13,7 +20,6 @@ import requests
 from rasa_core.domain import Domain
 import json
 
-# main class to get the capital name of respective country
 class CapitalForm(FormAction):
     def name(self) -> Text:
         return "capital_form"
@@ -26,8 +32,13 @@ class CapitalForm(FormAction):
         }
 
     def validate_capital_name(self, value:Text, dispatcher:CollectingDispatcher, tracker:Tracker, domain: Dict[Text, Any])->Any:
-        lst = ["USA","India", "Greece", "Sweden", "Australia", "Finland","Japan","Russia"]
-        if value in lst:
+        url = "https://qcooc59re3.execute-api.us-east-1.amazonaws.com/dev/getCountries"
+        country_name = requests.get(url)
+        country = (country_name.text)
+        data = json.loads(country)
+        capital_list = data['body']
+
+        if value in capital_list:
             return {"capital_name": value}
         else:
             dispatcher.utter_template("utter_wrong_capital_name", tracker)
@@ -38,19 +49,19 @@ class CapitalForm(FormAction):
                tracker: Tracker,
                domain: Dict[Text, Any],
     ) -> List[Dict] :
-        location = tracker.get_slot("capital_name") # get the user click button payload value
+        location = tracker.get_slot("capital_name")
         #trac_country = location
         PARAMS = {"country":location}
         headers = {'content-type': 'application/json'}
 
         url = "https://qcooc59re3.execute-api.us-east-1.amazonaws.com/dev/getCapital"
-        response = requests.post(url, data = json.dumps(PARAMS), headers=headers) # post the url with headers and data
+        response = requests.post(url, data = json.dumps(PARAMS), headers=headers)
         #data = json.loads(response)
         data = response.json()
         ans = data['body']['capital']
       
         print(ans)
-        return [SlotSet("trac_capital", ans), SlotSet("trac_country", location)] # return the fetch capital from api and clicked country by user
+        return [SlotSet("trac_capital", ans), SlotSet("trac_country", location)]
 
 class PopulationForm(FormAction):
     def name(self) -> Text:
@@ -62,6 +73,18 @@ class PopulationForm(FormAction):
         return {
             "total_population"    : [self.from_text()],
         }
+    def validate_total_population(self, value:Text, dispatcher:CollectingDispatcher, tracker:Tracker, domain: Dict[Text, Any])->Any:
+        url = "https://qcooc59re3.execute-api.us-east-1.amazonaws.com/dev/getCountries"
+        country_name = requests.get(url)
+        country = (country_name.text)
+        data = json.loads(country)
+        capital_list = data['body']
+        if value in capital_list:
+            return {"total_population": value}
+        else:
+            dispatcher.utter_template("utter_wrong_total_population", tracker)
+            return {"total_population": None}
+ 
     def submit(self,
                dispatcher: CollectingDispatcher,
                tracker: Tracker,
@@ -78,80 +101,76 @@ class PopulationForm(FormAction):
         return [SlotSet("trac_population", ans), SlotSet("trac_pcountry", location)]
 
 
-# function to get capial name by country name 
-def getcapital(name_capital):
-    if name_capital == "India_capital":
-        location = "India"
-    elif name_capital == "USA_capital":
-        location = "USA"
-    elif name_capital == "Greece_capital":
-        location = "Greece"
-    elif name_capital == "Sweden_capital":
-        location = "Sweden"
-    elif name_capital == "Australia_capital":
-        location = "Australia"
-    elif name_capital == "Finland_capital":
-        location = "Finland"
-    elif name_capital == "Japan_capital":
-        location = "Japan"
-    else:
-        location = "Russia"
-    PARAMS = {"country":location}
-    headers = {'content-type': 'application/json'}
-    url = "https://qcooc59re3.execute-api.us-east-1.amazonaws.com/dev/getCapital"
-    response = requests.post(url, data = json.dumps(PARAMS), headers=headers)
-    data = response.json()
-    fullcapitalname = data['body']['capital']
-
-    return fullcapitalname,location 
-
-
 
 class ActionGetCapital(Action):
     def name(self):
         return "action_get_capital"
     def run(self, dispatcher, tracker, domain):
-        cap_name = tracker.latest_message['intent'].get('name') # in this line we get the intent name and pass this intent to the function to get respective capital name
-        trac_capital, trac_country = getcapital(cap_name) 
-        #print(trac_capital)
-        #print(trac_country)
-        return [SlotSet("trac_capital", trac_capital), SlotSet("trac_country", trac_country)] # return the slot values 
+        url = "https://qcooc59re3.execute-api.us-east-1.amazonaws.com/dev/getCountries"
+        country_name = requests.get(url)
+        capitals = (country_name.text)
+        data = json.loads(capitals)
+        capital_list = data['body']
+        cap_name = tracker.latest_message['entities'][0]['value']
+        capital_list_lower = []
+        for i in capital_list:
+            i = i.lower()
+            capital_list_lower.append(i)
+        #capital_lowercase = map(lambda x:x.lower(),capital_list)
+        i = 0
+        for i in range(len(capital_list_lower)):
+            if cap_name == capital_list_lower[i]:
+                index_number = int(i)
+                country_name = capital_list[index_number]            
+            #country_name = cap_name.title()
+                PARAMS = {"country":country_name}
+                headers = {'content-type': 'application/json'}
+                url = "https://qcooc59re3.execute-api.us-east-1.amazonaws.com/dev/getCapital"
+                response = requests.post(url, data = json.dumps(PARAMS), headers=headers)
+                data = response.json()
+                fullcapitalname = data['body']['capital']
+                dispatcher.utter_message("The {} is the capital of {}".format(fullcapitalname, country_name))
 
+            if cap_name not in capital_list_lower:
+                dispatcher.utter_message("Please re-enter the country name")
+                break
 
-# function to return population of corresponding country
-def getpopulation(total_pop):
-    if total_pop == "India_population":
-        location = "India"
-    elif total_pop == "USA_population":
-        location = "USA"
-    elif total_pop == "Greece_population":
-        location = "Greece"
-    elif total_pop == "Sweden_population":
-        location = "Sweden"
-    elif total_pop == "Australia_population":
-        location = "Australia"
-    elif total_pop == "Finland_population":
-        location = "Finland"
-    elif total_pop == "Japan_population":
-        location = "Japan"
-    else:
-        location = "Russia"
-    PARAMS = {"country":location}
-    headers = {'content-type': 'application/json'}
-    url = "https://qcooc59re3.execute-api.us-east-1.amazonaws.com/dev/getPopulation"
-    response = requests.post(url, data = json.dumps(PARAMS), headers=headers)
-    data = response.json()
-    totalpopulation = data['body']['population']
+        return []
 
-    return totalpopulation,location
 
 
 class ActionGetPopulation(Action):
     def name(self):
         return "action_get_population"
     def run(self, dispatcher, tracker, domain):
-        tot_population = tracker.latest_message['intent'].get('name') # in this line we will get the intent of user message
-        trac_population, trac_pcountry = getpopulation(tot_population) # call the getpoulation function to get the population of corresponding country
-        return [SlotSet("trac_population", trac_population), SlotSet("trac_pcountry", trac_pcountry)] # return the slot population & country name
+
+        url = "https://qcooc59re3.execute-api.us-east-1.amazonaws.com/dev/getCountries"
+        country_name = requests.get(url)
+        population_country = (country_name.text)
+        data = json.loads(population_country)
+        capital_list = data['body']
+        cap_name = tracker.latest_message['entities'][0]['value']
+        population_list_lower = []
+        for i in capital_list:
+            i = i.lower()
+            population_list_lower.append(i)
+        i = 0
+        for i in range(len(population_list_lower)):
+            if cap_name == population_list_lower[i]:
+                index_number = int(i)
+                country_name = capital_list[index_number]            
+                PARAMS = {"country":country_name}
+                headers = {'content-type': 'application/json'}
+                url = "https://qcooc59re3.execute-api.us-east-1.amazonaws.com/dev/getPopulation"
+                response = requests.post(url, data = json.dumps(PARAMS), headers=headers)
+                data = response.json()
+                totalpopulation = data['body']['population']
+                dispatcher.utter_message("The total population of {} is {}".format(country_name, totalpopulation))
+            if cap_name not in population_list_lower:
+                dispatcher.utter_message("Please re-enter the country name")
+                break
+        return []
+
+        return [SlotSet("trac_population", trac_population), SlotSet("trac_pcountry", trac_pcountry)]
 
 
