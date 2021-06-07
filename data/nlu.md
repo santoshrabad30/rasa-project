@@ -63,119 +63,79 @@
 - could you tell me the total population 
 - can you give number of population of that country
 
-## intent: USA_capital
-- can you tell me the capital of [USA]{location}
-- please tell me the capital of [USA]{location}
-- what is the capital of [USA]{location}
-- could you give me the name of capital of [USA]{location}
+## intent: country_capital
+- can you tell me the capital of [USA](capital_location)
+- please tell me the capital of [USA](capital_location)
+- what is the capital of [USA](capital_location)
+- could you give me the name of capital of [USA](capital_location)
+- can you tell me the capital of [India](capital_location)
+- please tell me the capital of [India](capital_location)
+- what is the capital of [India](capital_location)
+- could you give me the name of capital of [India](capital_location)
+- can you tell me the capital of [Russia](capital_location)
+- please tell me the capital of [Russia](capital_location)
+- what is the capital of [Russia](capital_location)
+- could you give me the name of capital of [Russia](capital_location)
+- can you tell me the capital of [Greece](capital_location)
+- please tell me the capital of [Greece](capital_location)
+- what is the capital of [Greece](capital_location)
+- could you give me the name of capital of [Greece](capital_location)
+- can you tell me the capital of [Sweden](capital_location)
+- please tell me the capital of [Sweden](capital_location)
+- what is the capital of [Sweden](capital_location)
+- could you give me the name of capital of [Sweden](capital_location)
+- can you tell me the capital of [Australia](capital_location)
+- please tell me the capital of [Australia](capital_location)
+- what is the capital of [Australia](capital_location)
+- could you give me the name of capital of [Australia](capital_location)
+- can you tell me the capital of [Finland](capital_location)
+- please tell me the capital of [Finland](capital_location)
+- what is the capital of [Finland](capital_location)
+- could you give me the name of capital of [Finland](capital_location)
+- can you tell me the capital of [Japan](capital_location)
+- please tell me the capital of [Japan](capital_location)
+- what is the capital of [Japan](location)
+- could you give me the name of capital of [Japan](location)
 
-## intent: India_capital
-- can you tell me the capital of [India]{location}
-- please tell me the capital of [India]{location}
-- what is the capital of [India]{location}
-- could you give me the name of capital of [India]{location}
-
-## intent: Russia_capital
-- can you tell me the capital of [Russia]{location}
-- please tell me the capital of [Russia]{location}
-- what is the capital of [Russia]{location}
-- could you give me the name of capital of [Russia]{location}
-
-## intent: Greece_capital
-- can you tell me the capital of [Greece]{location}
-- please tell me the capital of [Greece]{location}
-- what is the capital of [Greece]{location}
-- could you give me the name of capital of [Greece]{location}
-
-## intent: Sweden_capital
-- can you tell me the capital of [Sweden]{location}
-- please tell me the capital of [Sweden]{location}
-- what is the capital of [Sweden]{location}
-- could you give me the name of capital of [Sweden]{location}
-
-## intent: Australia_capital
-- can you tell me the capital of [Australia]{location}
-- please tell me the capital of [Australia]{location}
-- what is the capital of [Australia]{location}
-- could you give me the name of capital of [Australia]{location}
-
-## intent: Finland_capital
-- can you tell me the capital of [Finland]{location}
-- please tell me the capital of [Finland]{location}
-- what is the capital of [Finland]{location}
-- could you give me the name of capital of [Finland]{location}
-
-## intent: Japan_capital
-- can you tell me the capital of [Japan]{location}
-- please tell me the capital of [Japan]{location}
-- what is the capital of [Japan]{location}
-- could you give me the name of capital of [Japan]{location}
-
-
-## intent: USA_population
-- can you tell me the population of [USA]{location}
-- please tell me the population of [USA]{location} country
-- what is the population of [USA]{location}
-- could you give me the total population of [USA]{location}
-- total population of [USA]{location}
-
-## intent: Greece_population
-- can you tell me the population of [Greece]{location}
-- please tell me the population of [Greece]{location} country
-- what is the population of [Greece]{location}
-- could you give me the total population of [Greece]{location}
-- total population of [Greece]{location}
-
-## intent: Sweden_population
-- can you tell me the population of [Sweden]{location}
-- please tell me the population of [Sweden]{location} country
-- what is the population of [Sweden]{location}
-- could you give me the total population of [Sweden]{location}
-- total population of [Sweden]{location}
-
-## intent: Australia_population
-- can you tell me the population of [Australia]{location}
-- please tell me the population of [Australia]{location} country
-- what is the population of [Australia]{location}
-- could you give me the total population of [Australia]{location}
-- total population of [Australia]{location}
-
-## intent: Finland_population
-- can you tell me the population of [Finland]{location}
-- please tell me the population of [Finland]{location} country
-- what is the population of [Finland]{location}
-- could you give me the total population of [Finland]{location}
-- total population of [Finland]{location}
-
-## intent: Japan_population
-- can you tell me the population of [Japan]{location}
-- please tell me the population of [Japan]{location} country
-- what is the population of [Japan]{location}
-- could you give me the total population of [Japan]{location}
-- total population of [Japan]{location}
-
-## intent: Russia_population
-- can you tell me the population of [Russia]{location}
-- please tell me the population of [Russia]{location} country
-- what is the population of [Russia]{location}
-- could you give me the total population of [Russia]{location}
-- total population of [Russia]{location}
-
-## intent: India_population
-- can you tell me the population of [India]{location}
-- please tell me the population of [India]{location} country
-- what is the population of [India]{location}
-- could you give me the total population of [India]{location}
-- total population of [India]{location}
-
-
-
-
-
-
-
-
-
-
-
+## intent: country_population
+- can you tell me the population of [USA](population_location)
+- please tell me the population of [USA](population_location) country
+- what is the population of [USA](population_location)
+- could you give me the total population of [USA](population_location)
+- total population of [USA](population_location)
+- can you tell me the population of [Greece](population_location)
+- please tell me the population of [Greece](population_location) country
+- what is the population of [Greece](population_location)
+- could you give me the total population of [Greece](population_location)
+- total population of [Greece](population_location)
+- can you tell me the population of [Sweden](population_location)
+- please tell me the population of [Sweden](population_location) country
+- what is the population of [Sweden](population_location)
+- could you give me the total population of [Sweden](population_location)
+- total population of [Sweden](population_location)
+- can you tell me the population of [Australia](population_location)
+- please tell me the population of [Australia](population_location) country
+- what is the population of [Australia](population_location)
+- could you give me the total population of [Australia](population_location)
+- total population of [Australia](population_location)
+- can you tell me the population of [Finland](population_location)
+- please tell me the population of [Finland](population_location) country
+- what is the population of [Finland](population_location)
+- could you give me the total population of [Finland](population_location)
+- total population of [Finland](population_location)
+- can you tell me the population of [Japan](population_location)
+- please tell me the population of [Japan](population_location) country
+- what is the population of [Japan](population_location)
+- could you give me the total population of [Japan](population_location)
+- total population of [Japan](population_location)
+- can you tell me the population of [Russia](population_location)
+- please tell me the population of [Russia](population_location) country
+- what is the population of [Russia](population_location)
+- could you give me the total population of [Russia](population_location)
+- total population of [Russia](population_location)
+- can you tell me the population of [India](population_location)
+- please tell me the population of [India](population_location) country
+- what is the population of [India](population_location)
+- could you give me the total population of [India](population_location)
+- total population of [India](population_location)
 
