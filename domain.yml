@@ -7,29 +7,35 @@ intents:
   - mood_unhappy
   - check_capital
   - check_population
-  - USA_capital
-  - India_capital
-  - Russia_capital
-  - Greece_capital
-  - Sweden_capital
-  - Australia_capital
-  - Finland_capital
-  - Japan_capital
-  - USA_population
-  - India_population
-  - Russia_population
-  - Greece_population
-  - Sweden_population
-  - Australia_population
-  - Finland_population
-  - Japan_population
+  - country_capital
+  - country_population
+#  - USA_capital
+#  - India_capital
+#  - Russia_capital
+#  - Greece_capital
+#  - Sweden_capital
+#  - Australia_capital
+#  - Finland_capital
+#  - Japan_capital
+#  - USA_population
+#  - India_population
+#  - Russia_population
+#  - Greece_population
+#  - Sweden_population
+#  - Australia_population
+#  - Finland_population
+#  - Japan_population
  
 
 
 entities:
   - location
+  - capital_location
+  - population_location
 
 slots:
+  cap_name:
+     type: unfeaturized
   trac_country:
      type: unfeaturized 
   trac_capital:
@@ -50,15 +56,15 @@ actions:
 - utter_ask_capital_name
 - utter_ask_total_population
 - utter_greet
-- utter_cheer_up
-- utter_did_that_help
-- utter_happy
 - utter_goodbye
 - utter_capital_ans
 - utter_population_ans
 - utter_wrong_capital_name
+- utter_wrong_total_population
 
 templates:
+  utter_wrong_total_population:
+  - text: "Please re-enter a country name:"
   utter_wrong_capital_name:
   - text: "Please re-enter a country name:"
   utter_capital_ans:
@@ -108,15 +114,6 @@ templates:
   utter_greet:
   - text: "Hey! How are you?"
 
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great carry on!"
 
   utter_goodbye:
   - text: "Bye"
@@ -125,5 +122,3 @@ templates:
 forms:
   - capital_form
   - population_form
-
-
