@@ -171,6 +171,5 @@ class ActionGetPopulation(Action):
                 break
         return []
 
-        return [SlotSet("trac_population", trac_population), SlotSet("trac_pcountry", trac_pcountry)]
 
 
