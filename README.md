@@ -1,5 +1,5 @@
 # rasa-project
-to get capital name and total population of country
+Get capital name and total population of country by simple FAQ.
 
 Installation of rasa on linux 
 1. install rasa 1.0.9
